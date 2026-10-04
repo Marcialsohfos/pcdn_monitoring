@@ -1,0 +1,7 @@
+streamlit>=1.50,<2
+pandas>=2.1
+numpy>=1.26
+geopandas>=1.0
+pyogrio>=0.9
+openpyxl>=3.1
+pydeck>=0.9

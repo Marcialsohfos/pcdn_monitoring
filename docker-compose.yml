@@ -1,0 +1,26 @@
+# Lancement :  docker compose up -d --build
+services:
+  app:                                  # interface web (port 8501)
+    build: .
+    image: pcdn-monitoring
+    container_name: pcdn-app
+    ports:
+      - "8501:8501"
+    env_file: .env
+    volumes:
+      - pcdn_data:/data
+    restart: unless-stopped
+
+  scheduler:                            # lancement automatique chaque jour (PCDN_RUN_TIME)
+    image: pcdn-monitoring
+    container_name: pcdn-scheduler
+    command: ["python", "scheduler.py"]
+    env_file: .env
+    volumes:
+      - pcdn_data:/data
+    depends_on:
+      - app
+    restart: unless-stopped
+
+volumes:
+  pcdn_data:
